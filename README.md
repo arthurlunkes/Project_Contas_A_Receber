@@ -68,6 +68,18 @@ O Frontend do sistema foi desenvolvido utilizando a biblioteca React. Essa camad
 
 - Quando inserir um cliente pelo front, vai dar um erro, mas se recarregar a página, o registro aparece
 
+## Passos para rodar esse projeto
+
+1. Baixe esse repositório via git ou GitHub Desktop
+2. Abra a pasta do backend com a IDE de sua preferência
+3. Baixe as dependências do projeto, seguindo os passo a passo da sua IDE
+4. Starte a aplicação a partir da classe AccountsreceivableApplication
+5. Abra a pasta do frontend com o VSCode
+6. Abra o terminal na pasta
+7. Rode o comando npm install (Para instalar as dependências)
+8. Após terminar de baixar, rode o comando npm start
+9. Pronto para testar!
+
 ## Considerações finais
 
 O desenvolvimento desse desafio Full Stack utilizando java com Spring Boot e React foi concluído com apenas 2 probleminhas: um dos requisitos não funcionando, alterar os registros e quando o registro é inserido no frontend, dá erro mas recarregando a página, ele aparece.
