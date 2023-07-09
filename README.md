@@ -51,7 +51,7 @@ O Frontend do sistema foi desenvolvido utilizando a biblioteca React. Essa camad
 |--|--|--|
 | GET | ✔️ | ✔️ |
 | POST | ✔️ | ✔️ |
-| PUT | |  |
+| PUT | ✔️ |  |
 | DEL | ✔️ | ✔️ |
 
 
