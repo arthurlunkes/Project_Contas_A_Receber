@@ -1,0 +1,9 @@
+dev\arthur\accountsreceivable\models\ReceivableModel.class
+dev\arthur\accountsreceivable\AccountsreceivableApplication.class
+dev\arthur\accountsreceivable\dtos\ReceivableDTO.class
+dev\arthur\accountsreceivable\dtos\RequestSaveDTO.class
+dev\arthur\accountsreceivable\repositories\ReceivableRepository.class
+dev\arthur\accountsreceivable\dtos\ClientDTO.class
+dev\arthur\accountsreceivable\services\ReceivableService.class
+dev\arthur\accountsreceivable\controllers\ClientController.class
+dev\arthur\accountsreceivable\services\ClientService.class
