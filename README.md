@@ -55,7 +55,7 @@ O Frontend do sistema foi desenvolvido utilizando a biblioteca React. Essa camad
 | DEL | ✔️ | ✔️ |
 
 
-- Método PUT está com problemas
+- Método PUT está com problemas no frontend
 - Algumas informações úteis estão no arquivo application.properties
 ![enter image description here](https://github.com/arthurlunkes/Project_Contas_A_Receber/blob/main/images/applicationproperties.PNG)
 - Pode acessar a documentação de consumo dos endpoints no postman [aqui!](https://www.postman.com/spacecraft-participant-60213181/workspace/workspacepublic/collection/19564710-edf37ea1-0b38-4841-9fa2-c7c13ec859b5?action=share&creator=19564710)
