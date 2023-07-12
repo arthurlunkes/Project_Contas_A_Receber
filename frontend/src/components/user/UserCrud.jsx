@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
+import Modal from '../Modal/Modal'
 
 const headerProps = {
   icon: 'book',
@@ -131,7 +132,6 @@ export default class UserCrud extends Component {
       this.setState({ list });
     });
   }
-  
 
   renderForm() {
     const { clientDTO, receivableDTO } = this.state
