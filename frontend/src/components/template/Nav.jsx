@@ -9,7 +9,7 @@ export default props =>
                 <i className="fa fa-home"></i> Início
             </Link>
             <Link to="/receivables">
-                <i className="fa fa-book"></i> Contas a receber
+                <i className="fa fa-address-book"></i> Contas a receber
             </Link>
         </nav>
     </aside>

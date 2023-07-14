@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
+import './UserCrud.css'
 import axios from 'axios'
 import Main from '../template/Main'
-import '../Modal/Modal.css'
 
 const headerProps = {
-  icon: 'book',
+  icon: 'address-book',
   title: 'Contas a receber',
   subtitle: 'Cadastro de contas: criar, listar, alterar e excluir!'
 }
@@ -24,7 +24,21 @@ const initialState = {
     description: '',
     status: ''
   },
-  list: []
+  list: [ {
+    clientDTO: {
+      id: '1',
+      firstName: 'asdd',
+      lastName: 'asd',
+      typeClient: 'asdad'
+    },
+    receivableDTO: {
+      idReceivable: '1',
+      totalValue: '200',
+      description: 'asdas',
+      status: 'dasd'
+    }
+  }
+  ]
 }
 
 const ModalDefault = ({ isOpen, onClose, children }) => {
@@ -140,7 +154,7 @@ export default class UserCrud extends Component {
   }
 
   load(client) {
-    this.setState({ ...client })
+    this.setState({ ...client, isModalOpen:true })
   }
 
   remove(client) {
@@ -432,7 +446,7 @@ export default class UserCrud extends Component {
             <button className="btn btn-warning" onClick={() => this.load(item)}>
               <i className="fa fa-pencil"></i>
             </button>
-            <button className="btn btn-danger ml-2" onClick={() => this.remove(item)}>
+            <button className="btn btn-danger m-1" onClick={() => this.remove(item)}>
               <i className="fa fa-trash"></i>
             </button>
           </td>

@@ -1,12 +1,24 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router'
+import { Route, Routes, Navigate } from 'react-router'
 
-import Home from '../components/home/Home'
+import Start from '../components/start/Start'
 import UserCrud from '../components/user/UserCrud'
+import Login from '../pages/login/Login'
 
-export default props => 
-    <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/receivables' component={UserCrud} />
-        <Redirect from='*' to='/' />
-    </Switch>
+export const RouteLogin = () => (
+  <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route path="*" element={<Navigate to="/login" />} />
+  </Routes>
+)
+
+const RoutesApp = () => (
+  <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route path="/home" element={<Start />} />
+    <Route path="/receivables" element={<UserCrud />} />
+    <Route path="*" element={<Navigate to="/home" />} />
+  </Routes>
+)
+
+export default RoutesApp
