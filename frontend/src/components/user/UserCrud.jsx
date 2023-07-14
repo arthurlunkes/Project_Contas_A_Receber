@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
-import Modal from '../Modal/Modal'
+import '../Modal/Modal.css'
 
 const headerProps = {
   icon: 'book',
@@ -27,8 +27,25 @@ const initialState = {
   list: []
 }
 
+const ModalDefault = ({ isOpen, onClose, children }) => {
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button className="modal-close" onClick={onClose}>
+          X
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 export default class UserCrud extends Component {
-  state = { ...initialState }
+  state = { ...initialState, isModalOpen: false }
 
   transformForCreate(client) {
     const { firstName, lastName, typeClient } = client.clientDTO
@@ -78,8 +95,8 @@ export default class UserCrud extends Component {
   }
 
   clear() {
-    this.setState({ clientDTO: initialState.clientDTO, receivableDTO: initialState.receivableDTO });
-  }  
+    this.setState({ clientDTO: initialState.clientDTO, receivableDTO: initialState.receivableDTO, isModalOpen: false });
+  }
 
   save() {
     const { clientDTO, receivableDTO } = this.state
@@ -91,7 +108,7 @@ export default class UserCrud extends Component {
     axios[method](url, requestData)
       .then(resp => {
         const list = this.getUpdatedList(resp.data)
-        this.setState({ ...initialState, list })
+        this.setState({ ...initialState, list, isModalOpen: false })
       })
   }
 
@@ -133,11 +150,141 @@ export default class UserCrud extends Component {
     });
   }
 
+  closeModal = () => {
+    this.setState({ clientDTO: initialState.clientDTO, receivableDTO: initialState.receivableDTO , isModalOpen: false });
+  };
+
+  openModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+
+  renderModal() {
+    const { clientDTO, receivableDTO } = this.state
+
+    return (
+      <div>
+        <button className="btn btn-primary" onClick={() => this.openModal()}>Criar cliente</button>
+        <ModalDefault isOpen={this.state.isModalOpen} onClose={this.closeModal}>
+          <h2 className='text-center'>Criar cliente</h2>
+          <div className="form">
+            <div className="text-center">
+            </div>
+            <div className="row">
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="firstName"
+                    value={clientDTO.firstName}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite o nome..."
+                  />
+                </div>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Sobrenome</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    value={clientDTO.lastName}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite o sobrenome..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Tipo do cliente</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="typeClient"
+                    value={clientDTO.typeClient}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite o tipo..."
+                  />
+                </div>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Descrição da conta</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="description"
+                    value={receivableDTO.description}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite a descrição..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Status do pagamento</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="status"
+                    value={receivableDTO.status}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite o status..."
+                  />
+                </div>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <div className="form-group">
+                  <label>Valor total</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="totalValue"
+                    value={receivableDTO.totalValue}
+                    onChange={e => this.updateField(e)}
+                    placeholder="Digite o valor..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <hr />
+            <div className="row">
+              <div className="col-12 d-flex justify-content-end">
+                <button className="btn btn-primary" onClick={e => this.save(e)}>
+                  Salvar
+                </button>
+
+                <button className="btn btn-secondary ml-2" onClick={e => this.clear(e)}>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </ModalDefault>
+      </div>
+    )
+  }
+
   renderForm() {
     const { clientDTO, receivableDTO } = this.state
 
     return (
       <div className="form">
+        <div className="text-center">
+          {this.renderModal()}
+        </div>
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="form-group">
@@ -246,63 +393,63 @@ export default class UserCrud extends Component {
 
   renderTable() {
     return (
-        <table className="table mt-4">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Sobrenome</th>
-                    <th>Tipo</th>
-                    <th>Descrição</th>
-                    <th>Status</th>
-                    <th>Valor</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {this.renderRows()}
-            </tbody>
-        </table>
+      <table className="table mt-4">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Valor</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderRows()}
+        </tbody>
+      </table>
     )
-}
+  }
 
-renderRows() {
+  renderRows() {
     return this.state.list.map(item => {
-        const { clientDTO, receivableDTO } = item;
-        const { id, firstName, lastName, typeClient } = clientDTO;
-        const { idReceivable, description, status, totalValue } = receivableDTO;
+      const { clientDTO, receivableDTO } = item;
+      const { id, firstName, lastName, typeClient } = clientDTO;
+      const { idReceivable, description, status, totalValue } = receivableDTO;
 
-        return (
-            <tr key={id}>
-                <td>{id}</td>
-                <td>{firstName}</td>
-                <td>{lastName}</td>
-                <td>{typeClient}</td>
-                <td>{description}</td>
-                <td>{status}</td>
-                <td>{totalValue}</td>
-                <td>
-                    <button className="btn btn-warning" onClick={() => this.load(item)}>
-                        <i className="fa fa-pencil"></i>
-                    </button>
-                    <button className="btn btn-danger ml-2" onClick={() => this.remove(item)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        );
+      return (
+        <tr key={id}>
+          <td>{id}</td>
+          <td>{firstName}</td>
+          <td>{lastName}</td>
+          <td>{typeClient}</td>
+          <td>{description}</td>
+          <td>{status}</td>
+          <td>{totalValue}</td>
+          <td>
+            <button className="btn btn-warning" onClick={() => this.load(item)}>
+              <i className="fa fa-pencil"></i>
+            </button>
+            <button className="btn btn-danger ml-2" onClick={() => this.remove(item)}>
+              <i className="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      );
     });
-}
+  }
 
 
 
 
-render() {
+  render() {
     return (
-        <Main {...headerProps}>
-            {this.renderForm()}
-            {this.renderTable()}
-        </Main>
+      <Main {...headerProps}>
+        {this.renderModal()}
+        {this.renderTable()}
+      </Main>
     )
-}
+  }
 }
