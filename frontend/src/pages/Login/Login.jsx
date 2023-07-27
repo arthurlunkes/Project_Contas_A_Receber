@@ -42,15 +42,18 @@ const Login = () => {
   return (
     <div className="backgroud">
       <div className="login-container">
-        <ul className="selecoes">
-          <li className={activeTab === "tab1" ? "active" : ""}
+        <div className="tabs">
+          <p
+            id='tab1' 
+            className={activeTab === "tab1" ? "active" : ""}
             onClick={handleTab1}
-          >Login</li>
-          <li
+          >Login</p>
+          <p
+            id='tab2'
             className={activeTab === "tab2" ? "active" : ""}
             onClick={handleTab2}
-          >Registre-se</li>
-        </ul>
+          >Registre-se</p>
+        </div>
         {activeTab === "tab1" ?
           <div>
             <h2>Login</h2>
