@@ -6,7 +6,7 @@ import Main from '../template/Main'
 const headerProps = {
   icon: 'address-book',
   title: 'Contas a receber',
-  subtitle: 'Cadastro de contas: criar, listar, alterar e excluir!'
+  subtitle: ''
 }
 
 const baseUrl = 'http://localhost:8080'
@@ -24,7 +24,7 @@ const initialState = {
     description: '',
     status: ''
   },
-  list: [ {
+  list: [{
     clientDTO: {
       id: '1',
       firstName: 'asdd',
@@ -154,7 +154,7 @@ export default class UserCrud extends Component {
   }
 
   load(client) {
-    this.setState({ ...client, isModalOpen:true })
+    this.setState({ ...client, isModalOpen: true })
   }
 
   remove(client) {
@@ -165,7 +165,7 @@ export default class UserCrud extends Component {
   }
 
   closeModal = () => {
-    this.setState({ clientDTO: initialState.clientDTO, receivableDTO: initialState.receivableDTO , isModalOpen: false });
+    this.setState({ clientDTO: initialState.clientDTO, receivableDTO: initialState.receivableDTO, isModalOpen: false });
   };
 
   openModal = () => {
