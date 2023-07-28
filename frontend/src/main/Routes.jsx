@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from 'react-router'
 
 import Start from '../components/start/Start'
 import UserCrud from '../components/user/UserCrud'
-import Login from '../pages/login/Login'
+import Login from '../pages/Login/Login'
 
 export const RouteLogin = () => (
   <Routes>

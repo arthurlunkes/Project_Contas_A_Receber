@@ -2,6 +2,7 @@ import './Login.css'
 import React, { useState, useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { Navigate } from 'react-router';
+import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -18,15 +19,33 @@ const Login = () => {
     setActiveTab("tab2");
   };
 
-  const handleLogin = () => {
-    // Implemente aqui a lógica de login
-    // Verifique as credenciais do usuário e atualize o estado de autenticação no contexto
-
-    // Exemplo básico: Verificação de usuário "admin" e senha "admin"
-    if (username === 'admin' && password === 'admin') {
-      setAuth(true); // Atualize o estado de autenticação para "true"
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const data = {
+      login: username,
+      password: password,
+    };
+  
+    await axios.post(
+      'http://localhost:8080/auth/login',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then(response => {
+      console.log("Success ========>", response);
+      if(response.data.token !== null){
+        setAuth(true);
+      }
+    }).catch(error => {
+      console.log("Error ========>", error);
+      alert("Usuário ou senha incorreto!")
+    });
   };
+  
 
   const handleRegister = () => {
     // Implemente aqui a lógica de registro
@@ -44,7 +63,7 @@ const Login = () => {
       <div className="login-container">
         <div className="tabs">
           <p
-            id='tab1' 
+            id='tab1'
             className={activeTab === "tab1" ? "active" : ""}
             onClick={handleTab1}
           >Login</p>
@@ -70,7 +89,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button className='btn btn-primary' onClick={handleLogin}>Login</button>
+              <button className='btn btn-primary' onClick={(e) => handleSubmit(e)}>Login</button>
             </form>
           </div>
           :
@@ -90,14 +109,14 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="checkbox">
-              <input 
-                id="isAdmin"
-                type="checkbox"
-                name="Admin?"
-                value={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.value)}
-              />
-              <label for="isAdmin">Admin?</label>
+                <input
+                  id="isAdmin"
+                  type="checkbox"
+                  name="Admin?"
+                  value={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.value)}
+                />
+                <label for="isAdmin">Admin?</label>
               </div>
               <button className='btn btn-primary' onClick={handleRegister}>Registrar</button>
             </form>

@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import React, { useContext } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import RoutesApp, { RouteLogin } from './Routes';
+import { RouteLogin } from './Routes';
 import { AuthContext } from '../contexts/AuthContext';
 import Home from '../pages/home/Home';
 
