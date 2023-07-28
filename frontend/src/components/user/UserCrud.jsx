@@ -23,20 +23,7 @@ const initialState = {
     description: '',
     status: ''
   },
-  list: [{
-    clientDTO: {
-      id: '1',
-      firstName: 'asd',
-      lastName: 'asd',
-      typeClient: 'asd'
-    },
-    receivableDTO: {
-      idReceivable: 'asd',
-      totalValue: 'asd',
-      description: 'asd',
-      status: 'asd'
-    }
-  }]
+  list: []
 }
 
 export default class UserCrud extends Component {
