@@ -24,7 +24,7 @@ const Login = () => {
   
     const data = {
       login: username,
-      password: password,
+      password: password
     };
   
     await axios.post(
@@ -47,11 +47,32 @@ const Login = () => {
   };
   
 
-  const handleRegister = () => {
-    // Implemente aqui a lógica de registro
-    // Verifique as credenciais do usuário e atualize o estado de autenticação no contexto
-
-    // Exemplo básico: Verificação de usuário "admin" e senha "admin"
+  const handleRegister = async (e) => {
+    e.preventDefault();
+  
+    const data = {
+      login: username,
+      password: password,
+      role: isAdmin ? "ADMIN" : "USER"
+    };
+  
+    await axios.post(
+      'http://localhost:8080/auth/register',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then(response => {
+      console.log("Success ========>", response);
+      if(response.status === 200){
+        alert("Usuaário cadastrado com sucesso!");
+      }
+    }).catch(error => {
+      console.log("Error ========>", error);
+      alert("error"+error);
+    });
   };
 
   if (auth) { // Se o usuário estiver autenticado, redirecione para a rota "/home"
@@ -106,19 +127,16 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="checkbox">
+                onChange={e => setPassword(e.target.value)}
+              />                
+                <label>Admin?
                 <input
-                  id="isAdmin"
                   type="checkbox"
-                  name="Admin?"
                   value={isAdmin}
-                  onChange={(e) => setIsAdmin(e.target.value)}
+                  onChange={e => setIsAdmin(e.target.checked)}
                 />
-                <label for="isAdmin">Admin?</label>
-              </div>
-              <button className='btn btn-primary' onClick={handleRegister}>Registrar</button>
+                </label>
+              <button className='btn btn-primary' onClick={e => handleRegister(e)}>Registrar</button>
             </form>
           </div>
         }
