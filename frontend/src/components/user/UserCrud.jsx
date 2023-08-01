@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import './UserCrud.css'
-import axios from 'axios'
-import Main from '../template/Main'
+import React, { Component } from 'react';
+import './UserCrud.css';
+import axios from 'axios';
+import Main from '../template/Main';
+import { getAuthToken } from '../../services/axios';
 
 const headerProps = {
   icon: 'address-book',
@@ -24,21 +25,7 @@ const initialState = {
     description: '',
     status: ''
   },
-  list: [{
-    clientDTO: {
-      id: '1',
-      firstName: 'asdd',
-      lastName: 'asd',
-      typeClient: 'asdad'
-    },
-    receivableDTO: {
-      idReceivable: '1',
-      totalValue: '200',
-      description: 'asdas',
-      status: 'dasd'
-    }
-  }
-  ]
+  list: []
 }
 
 const ModalDefault = ({ isOpen, onClose, children }) => {
@@ -103,7 +90,7 @@ export default class UserCrud extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${baseUrl}/clients`).then(resp => {
+    axios.get(`${baseUrl}/clients`, { headers: { Authorization: `Bearer ${getAuthToken()}` } }).then(resp => {
       this.setState({ list: this.transformResponse(resp.data) })
     })
   }
@@ -119,7 +106,7 @@ export default class UserCrud extends Component {
 
     const requestData = method === 'post' ? this.transformForCreate(this.state) : this.state
 
-    axios[method](url, requestData)
+    axios[method](url, requestData, { headers: { Authorization: `Bearer ${getAuthToken()}` } })
       .then(resp => {
         const list = this.getUpdatedList(resp.data)
         this.setState({ ...initialState, list, isModalOpen: false })
@@ -158,7 +145,7 @@ export default class UserCrud extends Component {
   }
 
   remove(client) {
-    axios.delete(`${baseUrl}/clients/${client.clientDTO.id}`).then(resp => {
+    axios.delete(`${baseUrl}/clients/${client.clientDTO.id}`, { headers: { Authorization: `Bearer ${getAuthToken()}` } }).then(resp => {
       const list = this.getUpdatedList(client, false);
       this.setState({ list });
     });

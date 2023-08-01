@@ -1,6 +1,7 @@
-import './Login.css'
-import React, { useState, useContext } from 'react'
-import { AuthContext } from '../../contexts/AuthContext'
+import './Login.css';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { setAuthHeader } from '../../services/axios.js';
 import { Navigate } from 'react-router';
 import axios from 'axios';
 
@@ -21,12 +22,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = {
       login: username,
       password: password
     };
-  
+
     await axios.post(
       'http://localhost:8080/auth/login',
       data,
@@ -37,25 +38,26 @@ const Login = () => {
       }
     ).then(response => {
       console.log("Success ========>", response);
-      if(response.data.token !== null){
+      if (response.data.token !== null) {
         setAuth(true);
+        setAuthHeader(response.data.token);
       }
     }).catch(error => {
       console.log("Error ========>", error);
       alert("Usuário ou senha incorreto!")
     });
   };
-  
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
-  
+
     const data = {
       login: username,
       password: password,
       role: isAdmin ? "ADMIN" : "USER"
     };
-  
+
     await axios.post(
       'http://localhost:8080/auth/register',
       data,
@@ -66,12 +68,12 @@ const Login = () => {
       }
     ).then(response => {
       console.log("Success ========>", response);
-      if(response.status === 200){
+      if (response.status === 200) {
         alert("Usuaário cadastrado com sucesso!");
       }
     }).catch(error => {
       console.log("Error ========>", error);
-      alert("error"+error);
+      alert("error" + error);
     });
   };
 
@@ -83,16 +85,16 @@ const Login = () => {
     <div className="backgroud">
       <div className="login-container">
         <div className="tabs">
-          <p
+          <span
             id='tab1'
             className={activeTab === "tab1" ? "active" : ""}
             onClick={handleTab1}
-          >Login</p>
-          <p
+          >Login</span>
+          <span
             id='tab2'
             className={activeTab === "tab2" ? "active" : ""}
             onClick={handleTab2}
-          >Registre-se</p>
+          >Registre-se</span>
         </div>
         {activeTab === "tab1" ?
           <div>
@@ -128,14 +130,14 @@ const Login = () => {
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-              />                
-                <label>Admin?
+              />
+              <label>Admin?
                 <input
                   type="checkbox"
                   value={isAdmin}
                   onChange={e => setIsAdmin(e.target.checked)}
                 />
-                </label>
+              </label>
               <button className='btn btn-primary' onClick={e => handleRegister(e)}>Registrar</button>
             </form>
           </div>
