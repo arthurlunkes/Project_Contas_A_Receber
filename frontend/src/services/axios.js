@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const getAuthToken = () => {
     return window.localStorage.getItem('auth_token');
 };
@@ -14,9 +13,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const request = (method, url, data) => {
 
+    const token = getAuthToken();
+
     let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "null") {
-        headers = {'Authorization': `Bearer ${getAuthToken()}`};
+    if (token !== null && token !== "") {
+        headers = {'Authorization': `Bearer ${token}`};
     }
 
     return axios({

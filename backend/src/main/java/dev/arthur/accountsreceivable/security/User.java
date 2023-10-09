@@ -5,11 +5,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Table(name = "users")
 @Entity(name = "users")
@@ -62,4 +60,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

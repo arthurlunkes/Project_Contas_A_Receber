@@ -8,7 +8,6 @@ import Home from '../pages/home/Home';
 
 const App = () => {
   const { auth } = useContext(AuthContext);
-  console.log(auth);
 
   return (
     <BrowserRouter>

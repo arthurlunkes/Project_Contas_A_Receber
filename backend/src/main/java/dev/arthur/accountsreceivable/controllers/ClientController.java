@@ -57,14 +57,16 @@ public class ClientController {
     public ResponseEntity<Object> saveClient(@RequestBody RequestSaveDTO requestSaveDTO) {
         ClientModel newClient = new ClientModel();
         BeanUtils.copyProperties(requestSaveDTO.getClientDTO(), newClient);
-        ClientModel clienteSave = clientService.save(newClient);
+        ClientModel clientSave = clientService.save(newClient);
 
         ReceivableModel receivableModel = new ReceivableModel();
         BeanUtils.copyProperties(requestSaveDTO.getReceivableDTO(), receivableModel);
-        receivableModel.setClient(clienteSave);
+        receivableModel.setClient(clientSave);
         receivableService.saveReceivable(receivableModel);
 
-        return ResponseEntity.status(HttpStatus.OK).body(clienteSave);
+        var client = clientService.findById(clientSave.getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(client);
     }
 
 

@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   const handleTab1 = () => {
     setActiveTab("tab1");
@@ -39,7 +39,6 @@ const Login = () => {
     ).then(response => {
       console.log("Success ========>", response);
       if (response.data.token !== null) {
-        setAuth(true);
         setAuthHeader(response.data.token);
       }
     }).catch(error => {

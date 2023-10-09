@@ -7,20 +7,20 @@ import { getAuthToken } from '../../services/axios';
 const headerProps = {
   icon: 'address-book',
   title: 'Contas a receber',
-  subtitle: ''
+  subtitle: 'Crie as contas a receber'
 }
 
 const baseUrl = 'http://localhost:8080'
 
 const initialState = {
   clientDTO: {
-    id: '',
+    id: null,
     firstName: '',
     lastName: '',
     typeClient: ''
   },
   receivableDTO: {
-    idReceivable: '',
+    idReceivable: null,
     totalValue: '',
     description: '',
     status: ''
