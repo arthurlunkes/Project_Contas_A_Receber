@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './UserCrud.css';
 import axios from 'axios';
 import Main from '../template/Main';
-import { getAuthToken } from '../../services/axios';
+import { getAuthToken } from '../../services/LocalStorageService';
 
 const headerProps = {
   icon: 'address-book',
@@ -90,9 +90,10 @@ export default class UserCrud extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${baseUrl}/clients`, { headers: { Authorization: `Bearer ${getAuthToken()}` } }).then(resp => {
-      this.setState({ list: this.transformResponse(resp.data) })
-    })
+    axios.get(`${baseUrl}/clients`, { headers: { Authorization: `Bearer ${getAuthToken()}` } })
+        .then(resp => {
+          this.setState({ list: this.transformResponse(resp.data) })
+        })
   }
 
   clear() {
@@ -263,11 +264,11 @@ export default class UserCrud extends Component {
             <hr />
             <div className="row">
               <div className="col-12 d-flex justify-content-end">
-                <button className="btn btn-primary" onClick={e => this.save(e)}>
+                <button className="btn btn-primary m-lg-1" onClick={e => this.save(e)}>
                   Salvar
                 </button>
 
-                <button className="btn btn-secondary ml-2" onClick={e => this.clear(e)}>
+                <button className="btn btn-secondary m-lg-1" onClick={e => this.clear(e)}>
                   Cancelar
                 </button>
               </div>

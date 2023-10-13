@@ -1,8 +1,7 @@
 import './Login.css';
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import { setAuthHeader } from '../../services/axios.js';
-import { Navigate } from 'react-router';
+import { Navigate, useNavigate, useNavigation } from 'react-router';
 import axios from 'axios';
 
 const Login = () => {
@@ -10,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
-  const { auth } = useContext(AuthContext);
+  const { auth, setTokenInGlobal } = useContext(AuthContext);
 
   const handleTab1 = () => {
     setActiveTab("tab1");
@@ -19,6 +18,10 @@ const Login = () => {
   const handleTab2 = () => {
     setActiveTab("tab2");
   };
+
+  const navigateToHome = () => {
+    useNavigation("/home");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,8 +41,8 @@ const Login = () => {
       }
     ).then(response => {
       console.log("Success ========>", response);
-      if (response.data.token !== null) {
-        setAuthHeader(response.data.token);
+      if (response.data.token) {
+        setTokenInGlobal(response.data.token);
       }
     }).catch(error => {
       console.log("Error ========>", error);
@@ -76,7 +79,7 @@ const Login = () => {
     });
   };
 
-  if (auth) { // Se o usuário estiver autenticado, redirecione para a rota "/home"
+  if (auth) {
     return <Navigate to="/home" />;
   }
 

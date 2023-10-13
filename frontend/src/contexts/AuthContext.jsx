@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from 'react'
-import {getAuthToken} from "../services/axios";
+import {getAuthToken, removeAuthToken, setAuthToken} from "../services/LocalStorageService";
 
 export const AuthContext = createContext(false)
 
@@ -16,12 +16,24 @@ function AuthProvider ({children}) {
         }
     }
 
+    const setTokenInGlobal = (token) => {
+        setAuthToken(token);
+        setToken(token);
+        setAuth(true);
+    }
+
+    const logout = () => {
+        setAuth(false);
+        setToken('');
+        removeAuthToken();
+    }
+
     useEffect(() => {
         getToken();
     }, [auth]);
 
     return (
-        <AuthContext.Provider value={{auth, token}}>
+        <AuthContext.Provider value={{auth, token, setTokenInGlobal, logout}}>
             {children}
         </AuthContext.Provider>
     )
