@@ -101,3 +101,5 @@ O Frontend do sistema foi desenvolvido utilizando a biblioteca React. Essa camad
 <div id="Consideracoes">
 <h2>Considerações finais</h2>
 </div>
+
+O desenvolvimento desse desafio Full Stack utilizando java com Spring Boot e React foi concluído com apenas 2 probleminhas: um dos requisitos não funcionando, alterar os registros e quando o registro é inserido no frontend, dá erro mas recarregando a página, ele aparece.
