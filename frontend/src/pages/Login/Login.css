@@ -1,0 +1,60 @@
+.backgroud {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+}
+
+.tabs {
+  display: flex;
+  border: 1px solid #39a2db;
+  border-radius: 10px 10px 0px 0px;
+}
+
+span {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+
+#tab1 {
+  border-radius: 11px 0px 0px 0px;
+}
+
+#tab2 {
+  border-radius: 0px 10px 0px 0px;
+}
+
+span:hover {
+  background: rgba(50, 224, 196, 0.15);
+}
+
+span.active {
+  background: #39a2db;
+}

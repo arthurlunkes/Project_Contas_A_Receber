@@ -1,20 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
-import './App.css'
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { RouteLogin } from './Routes';
+import { AuthContext } from '../contexts/AuthContext';
+import Home from '../pages/home/Home';
 
-import Logo from '../components/template/Logo'
-import Nav from '../components/template/Nav'
-import Routes from './Routes'
-import Footer from '../components/template/Footer'
+const App = () => {
+  const { auth } = useContext(AuthContext);
 
-export default props =>
+  return (
     <BrowserRouter>
-        <div className="app">
-            <Logo />
-            <Nav />
-            <Routes />
-            <Footer />
-        </div>
+      {auth ? (
+        <Home />
+      ) : (
+        <RouteLogin />
+      )}
     </BrowserRouter>
+  );
+};
+
+export default App;
